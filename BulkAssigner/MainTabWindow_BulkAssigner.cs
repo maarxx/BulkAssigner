@@ -69,7 +69,7 @@ namespace BulkAssigner
             List<FloatMenuOption> outfitOptions = new List<FloatMenuOption>();
             foreach (Outfit outfit in Current.Game.outfitDatabase.AllOutfits)
             {
-                outfitOptions.Add(new FloatMenuOption(outfit.ToString(), delegate { setOutfit(outfit); }));
+                outfitOptions.Add(new FloatMenuOption(outfit.label, delegate { setOutfit(outfit); }));
             }
 
             for (int i = 0; i < 4; i++)
