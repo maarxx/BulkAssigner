@@ -56,6 +56,18 @@ namespace BulkAssigner
             }
         }
 
+        public void setDrugPolicy(DrugPolicy dp)
+        {
+            foreach (object obj in Find.Selector.SelectedObjects)
+            {
+                if (obj is Pawn)
+                {
+                    Pawn p = (Pawn )obj;
+                    p.drugs.CurrentPolicy = dp;
+                }
+            }
+        }
+
         public override void DoWindowContents(Rect canvas)
         {
             base.DoWindowContents(canvas);
@@ -70,6 +82,12 @@ namespace BulkAssigner
             foreach (Outfit outfit in Current.Game.outfitDatabase.AllOutfits)
             {
                 outfitOptions.Add(new FloatMenuOption(outfit.label, delegate { setOutfit(outfit); }));
+            }
+
+            List<FloatMenuOption> drugPolicyOptions = new List<FloatMenuOption>();
+            foreach (DrugPolicy dp in Current.Game.drugPolicyDatabase.AllPolicies)
+            {
+                drugPolicyOptions.Add(new FloatMenuOption(dp.label, delegate { setDrugPolicy(dp); }));
             }
 
             for (int i = 0; i < 4; i++)
@@ -96,13 +114,11 @@ namespace BulkAssigner
                         }
                         break;
                     case 2:
-                        buttonLabel = "Current Colonist Shot Finished is: ";
-                        /* TODO: Implement
+                        buttonLabel = "Set Drug Policy";
                         if (Widgets.ButtonText(nextButton, buttonLabel))
                         {
-                            component.colonistShotFinished = !curColonistShotFinished;
+                            Find.WindowStack.Add(new FloatMenu(drugPolicyOptions));
                         }
-                        */
                         break;
                     case 3:
                         buttonLabel = "Current Enemy Shot Begun is: ";
