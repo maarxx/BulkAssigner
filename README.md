@@ -14,7 +14,7 @@ This is a mod for the game RimWorld by Ludeon Studios.
 
 You'll add the mod. You'll enable the mod.
 
-It will add a new MainTab, somewhere near the bottom right corner.
+Within the game, it adds a MainTab, probably in the far-bottom-right-corner, labeled "BulkAssigner".
 
 This MainTab contains three buttons, corresponding to the settings in the "Assign" tab:
 
