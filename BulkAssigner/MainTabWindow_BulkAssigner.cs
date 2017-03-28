@@ -68,14 +68,14 @@ namespace BulkAssigner
             }
         }
 
-        public void setAllowedArea(Area_Allowed aa)
+        public void setAllowedArea(Area a)
         {
             foreach (object obj in Find.Selector.SelectedObjects)
             {
                 if (obj is Pawn)
                 {
                     Pawn p = (Pawn)obj;
-                    p.playerSettings.AreaRestriction = aa;
+                    p.playerSettings.AreaRestriction = a;
                 }
             }
         }
@@ -106,10 +106,9 @@ namespace BulkAssigner
             List<FloatMenuOption> allowedAreas = new List<FloatMenuOption>();
             foreach (Area a in Find.VisibleMap.areaManager.AllAreas)
             {
-                if (a is Area_Allowed)
+                if (a.AssignableAsAllowed(AllowedAreaMode.Humanlike))
                 {
-                    Area_Allowed aa = (Area_Allowed)a;
-                    allowedAreas.Add(new FloatMenuOption(aa.Label, delegate { setAllowedArea(aa); }));
+                    allowedAreas.Add(new FloatMenuOption(a.Label, delegate { setAllowedArea(a); }));
                 }
             }
 
