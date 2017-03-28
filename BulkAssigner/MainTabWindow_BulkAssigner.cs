@@ -68,8 +68,21 @@ namespace BulkAssigner
             }
         }
 
+        public void setAllowedArea(Area_Allowed aa)
+        {
+            foreach (object obj in Find.Selector.SelectedObjects)
+            {
+                if (obj is Pawn)
+                {
+                    Pawn p = (Pawn)obj;
+                    p.playerSettings.AreaRestriction = aa;
+                }
+            }
+        }
+
         public override void DoWindowContents(Rect canvas)
         {
+            Text.Font = GameFont.Small;
             base.DoWindowContents(canvas);
 
             List<FloatMenuOption> hostilityResponseOptions = new List<FloatMenuOption>();
@@ -90,7 +103,17 @@ namespace BulkAssigner
                 drugPolicyOptions.Add(new FloatMenuOption(dp.label, delegate { setDrugPolicy(dp); }));
             }
 
-            for (int i = 0; i < 4; i++)
+            List<FloatMenuOption> allowedAreas = new List<FloatMenuOption>();
+            foreach (Area a in Find.VisibleMap.areaManager.AllAreas)
+            {
+                if (a is Area_Allowed)
+                {
+                    Area_Allowed aa = (Area_Allowed)a;
+                    allowedAreas.Add(new FloatMenuOption(aa.Label, delegate { setAllowedArea(aa); }));
+                }
+            }
+
+            for (int i = 0; i <= 4; i++)
             {
                 Rect nextButton = new Rect(canvas);
                 nextButton.y = i * (BUTTON_HEIGHT + BUTTON_SPACE);
@@ -121,13 +144,11 @@ namespace BulkAssigner
                         }
                         break;
                     case 3:
-                        buttonLabel = "Current Enemy Shot Begun is: ";
-                        /* TODO: Implement
+                        buttonLabel = "Set Allowed Area";
                         if (Widgets.ButtonText(nextButton, buttonLabel))
                         {
-                            component.enemyShotBegun = !curEnemyShotBegun;
+                            Find.WindowStack.Add(new FloatMenu(allowedAreas));
                         }
-                        */
                         break;
                 }
             }
