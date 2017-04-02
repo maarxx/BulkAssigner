@@ -103,6 +103,7 @@ namespace BulkAssigner
             }
 
             List<FloatMenuOption> allowedAreas = new List<FloatMenuOption>();
+            allowedAreas.Add(new FloatMenuOption("Unrestricted", delegate { setAllowedArea(null); }));
             foreach (Area a in Find.VisibleMap.areaManager.AllAreas)
             {
                 if (a.AssignableAsAllowed(AllowedAreaMode.Humanlike))
