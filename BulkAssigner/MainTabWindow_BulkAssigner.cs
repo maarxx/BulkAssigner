@@ -82,7 +82,6 @@ namespace BulkAssigner
 
         public override void DoWindowContents(Rect canvas)
         {
-            Text.Font = GameFont.Small;
             base.DoWindowContents(canvas);
 
             List<FloatMenuOption> hostilityResponseOptions = new List<FloatMenuOption>();
@@ -112,6 +111,7 @@ namespace BulkAssigner
                 }
             }
 
+            Text.Font = GameFont.Small;
             for (int i = 0; i <= 4; i++)
             {
                 Rect nextButton = new Rect(canvas);
