@@ -21,6 +21,7 @@ This MainTab contains three buttons, corresponding to the settings in the "Assig
 * One to assign Hostility Response Mode (Attack, Flee, Ignore).
 * One to assign Outfit.
 * One to assign Drug Policy.
+* One to assign Allowed Area.
 
 Except, here's the kicker, when you make a choice, it will apply to ALL OF YOUR SELECTED PAWNS AT ONCE.
 
