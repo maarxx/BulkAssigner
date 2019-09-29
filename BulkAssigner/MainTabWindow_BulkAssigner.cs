@@ -68,6 +68,18 @@ namespace BulkAssigner
             }
         }
 
+        public void setFoodRestriction(FoodRestriction fr)
+        {
+            foreach (object obj in Find.Selector.SelectedObjects)
+            {
+                if (obj is Pawn)
+                {
+                    Pawn p = (Pawn)obj;
+                    p.foodRestriction.CurrentFoodRestriction = fr;
+                }
+            }
+        }
+
         public void setAllowedArea(Area a)
         {
             foreach (object obj in Find.Selector.SelectedObjects)
@@ -102,6 +114,12 @@ namespace BulkAssigner
                 drugPolicyOptions.Add(new FloatMenuOption(dp.label, delegate { setDrugPolicy(dp); }));
             }
 
+            List<FloatMenuOption> foodRestrictionOptions = new List<FloatMenuOption>();
+            foreach (FoodRestriction fr in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
+            {
+                foodRestrictionOptions.Add(new FloatMenuOption(fr.label, delegate { setFoodRestriction(fr); }));
+            }
+
             List<FloatMenuOption> allowedAreas = new List<FloatMenuOption>();
             allowedAreas.Add(new FloatMenuOption("Unrestricted", delegate { setAllowedArea(null); }));
             foreach (Area a in Find.CurrentMap.areaManager.AllAreas)
@@ -113,7 +131,7 @@ namespace BulkAssigner
             }
 
             Text.Font = GameFont.Small;
-            for (int i = 0; i <= 4; i++)
+            for (int i = 0; i <= 5; i++)
             {
                 Rect nextButton = new Rect(canvas);
                 nextButton.y = i * (BUTTON_HEIGHT + BUTTON_SPACE);
@@ -144,6 +162,13 @@ namespace BulkAssigner
                         }
                         break;
                     case 3:
+                        buttonLabel = "Set Food Restriction";
+                        if (Widgets.ButtonText(nextButton, buttonLabel))
+                        {
+                            Find.WindowStack.Add(new FloatMenu(foodRestrictionOptions));
+                        }
+                        break;
+                    case 4:
                         buttonLabel = "Set Allowed Area";
                         if (Widgets.ButtonText(nextButton, buttonLabel))
                         {
