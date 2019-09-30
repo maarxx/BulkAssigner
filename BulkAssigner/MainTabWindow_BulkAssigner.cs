@@ -80,6 +80,18 @@ namespace BulkAssigner
             }
         }
 
+        public void dropEverythingFromInventory()
+        {
+            foreach (object obj in Find.Selector.SelectedObjects)
+            {
+                if (obj is Pawn)
+                {
+                    Pawn p = (Pawn)obj;
+                    p.inventory.DropAllNearPawn(p.Position);
+                }
+            }
+        }
+
         public void setAllowedArea(Area a)
         {
             foreach (object obj in Find.Selector.SelectedObjects)
@@ -173,6 +185,13 @@ namespace BulkAssigner
                         if (Widgets.ButtonText(nextButton, buttonLabel))
                         {
                             Find.WindowStack.Add(new FloatMenu(allowedAreas));
+                        }
+                        break;
+                    case 5:
+                        buttonLabel = "Drop Everything";
+                        if (Widgets.ButtonText(nextButton, buttonLabel))
+                        {
+                            dropEverythingFromInventory();
                         }
                         break;
                 }
