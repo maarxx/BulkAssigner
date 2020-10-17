@@ -75,7 +75,10 @@ namespace BulkAssigner
                 if (obj is Pawn)
                 {
                     Pawn p = (Pawn)obj;
-                    p.foodRestriction.CurrentFoodRestriction = fr;
+                    if (p?.foodRestriction?.CurrentFoodRestriction != null)
+                    {
+                        p.foodRestriction.CurrentFoodRestriction = fr;
+                    }
                 }
             }
         }
@@ -99,7 +102,10 @@ namespace BulkAssigner
                 if (obj is Pawn)
                 {
                     Pawn p = (Pawn)obj;
-                    p.playerSettings.AreaRestriction = a;
+                    if (p?.playerSettings?.AreaRestriction != null)
+                    {
+                        p.playerSettings.AreaRestriction = a;
+                    }
                 }
             }
         }
