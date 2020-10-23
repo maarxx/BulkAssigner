@@ -52,6 +52,7 @@ namespace BulkAssigner
                 {
                     Pawn p = (Pawn) obj;
                     p.outfits.CurrentOutfit = outfit;
+                    p.mindState.Notify_OutfitChanged();
                 }
             }
         }
