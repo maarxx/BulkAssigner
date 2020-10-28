@@ -103,7 +103,7 @@ namespace BulkAssigner
                 if (obj is Pawn)
                 {
                     Pawn p = (Pawn)obj;
-                    if (p?.playerSettings?.AreaRestriction != null)
+                    if (p?.playerSettings != null)
                     {
                         p.playerSettings.AreaRestriction = a;
                     }
