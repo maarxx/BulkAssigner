@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<MainTabDefs>
+<Defs>
 
-  <MainTabDef>
+  <MainButtonDef>
     <defName>BulkAssigner</defName>
     <label>BulkAssigner</label>
     <description>Provides some functions for bulk manipulation of assign functions.</description>
-    <windowClass>BulkAssigner.MainTabWindow_BulkAssigner</windowClass>
+    <tabWindowClass>BulkAssigner.MainTabWindow_BulkAssigner</tabWindowClass>
     <order>995</order>
     <!--<defaultToggleKey>F1</defaultToggleKey>-->
-  </MainTabDef>
+  </MainButtonDef>
   
-</MainTabDefs>
+</Defs>

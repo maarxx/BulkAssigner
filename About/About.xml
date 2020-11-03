@@ -3,6 +3,8 @@
   <name>BulkAssigner</name>
   <author>Maarx</author>
   <url>https://github.com/maarxx/BulkAssigner/</url>
-  <targetVersion>0.16.1393</targetVersion>
+  <supportedVersions>
+    <li>1.0</li>
+  </supportedVersions>
   <description>Provides some functions for bulk manipulation of assign functions, such as Hostility Reponse Mode, Outfit, Drug Policy, and Allowed Areas.</description>
 </ModMetaData>
