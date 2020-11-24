@@ -77,25 +77,61 @@ namespace BulkAssigner
                     allowedAreas.Add(new FloatMenuOption(a.Label, delegate { BulkAssigner_Functions.setAllowedArea(a); }));
                 }
             }
-            List<ModButtons.ModButton_Text> buttons = new List<ModButtons.ModButton_Text>();
-            buttons.Add(new ModButton_Text("Set Enemy Response", delegate {
-                Find.WindowStack.Add(new FloatMenu(hostilityResponseOptions));
-            }));
-            buttons.Add(new ModButton_Text("Set Outfit", delegate {
-                Find.WindowStack.Add(new FloatMenu(outfitOptions));
-            }));
-            buttons.Add(new ModButton_Text("Set Drug Policy", delegate {
-                Find.WindowStack.Add(new FloatMenu(drugPolicyOptions));
-            }));
-            buttons.Add(new ModButton_Text("Set Food Restriction", delegate {
-                Find.WindowStack.Add(new FloatMenu(foodRestrictionOptions));
-            }));
-            buttons.Add(new ModButton_Text("Set Allowed Area", delegate {
-                Find.WindowStack.Add(new FloatMenu(allowedAreas));
-            }));
-            buttons.Add(new ModButton_Text("Drop Everything", delegate {
-                BulkAssigner_Functions.dropEverythingFromInventory();
-            }));
+            List<ModButton_Text> buttons = new List<ModButton_Text>();
+            buttons.Add(new ModButton_Text(
+                delegate
+                {
+                    return "Set Enemy Response";
+                },
+                delegate {
+                    Find.WindowStack.Add(new FloatMenu(hostilityResponseOptions));
+                }
+            ));
+            buttons.Add(new ModButton_Text(
+                delegate
+                {
+                    return "Set Outfit";
+                },
+                delegate {
+                    Find.WindowStack.Add(new FloatMenu(outfitOptions));
+                }
+            ));
+            buttons.Add(new ModButton_Text(
+                delegate
+                {
+                    return "Set Drug Policy";
+                },
+                delegate {
+                    Find.WindowStack.Add(new FloatMenu(drugPolicyOptions));
+                }
+            ));
+            buttons.Add(new ModButton_Text(
+                delegate
+                {
+                    return "Set Food Restriction";
+                },
+                delegate {
+                    Find.WindowStack.Add(new FloatMenu(foodRestrictionOptions));
+                }
+            ));
+            buttons.Add(new ModButton_Text(
+                delegate
+                {
+                    return "Set Allowed Area";
+                },
+                delegate {
+                    Find.WindowStack.Add(new FloatMenu(allowedAreas));
+                }
+            ));
+            buttons.Add(new ModButton_Text(
+                delegate
+                {
+                    return "Drop Everything";
+                },
+                delegate {
+                    BulkAssigner_Functions.dropEverythingFromInventory();
+                }
+            ));
 
             columns.Add(buttons);
 
