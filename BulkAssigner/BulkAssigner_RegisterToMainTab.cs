@@ -44,39 +44,6 @@ namespace BulkAssigner
 
             List<List<ModButton_Text>> columns = MainTabWindow_ModButtons.columns;
 
-            List<FloatMenuOption> hostilityResponseOptions = new List<FloatMenuOption>();
-            foreach (HostilityResponseMode hrm in Enum.GetValues(typeof(HostilityResponseMode)))
-            {
-                hostilityResponseOptions.Add(new FloatMenuOption(hrm.ToString(), delegate { BulkAssigner_Functions.setHostilityResponseMode(hrm); }));
-            }
-
-            List<FloatMenuOption> outfitOptions = new List<FloatMenuOption>();
-            foreach (Outfit outfit in Current.Game.outfitDatabase.AllOutfits)
-            {
-                outfitOptions.Add(new FloatMenuOption(outfit.label, delegate { BulkAssigner_Functions.setOutfit(outfit); }));
-            }
-
-            List<FloatMenuOption> drugPolicyOptions = new List<FloatMenuOption>();
-            foreach (DrugPolicy dp in Current.Game.drugPolicyDatabase.AllPolicies)
-            {
-                drugPolicyOptions.Add(new FloatMenuOption(dp.label, delegate { BulkAssigner_Functions.setDrugPolicy(dp); }));
-            }
-
-            List<FloatMenuOption> foodRestrictionOptions = new List<FloatMenuOption>();
-            foreach (FoodRestriction fr in Current.Game.foodRestrictionDatabase.AllFoodRestrictions)
-            {
-                foodRestrictionOptions.Add(new FloatMenuOption(fr.label, delegate { BulkAssigner_Functions.setFoodRestriction(fr); }));
-            }
-
-            List<FloatMenuOption> allowedAreas = new List<FloatMenuOption>();
-            allowedAreas.Add(new FloatMenuOption("Unrestricted", delegate { BulkAssigner_Functions.setAllowedArea(null); }));
-            foreach (Area a in Find.CurrentMap.areaManager.AllAreas)
-            {
-                if (a.AssignableAsAllowed())
-                {
-                    allowedAreas.Add(new FloatMenuOption(a.Label, delegate { BulkAssigner_Functions.setAllowedArea(a); }));
-                }
-            }
             List<ModButton_Text> buttons = new List<ModButton_Text>();
             buttons.Add(new ModButton_Text(
                 delegate
@@ -84,7 +51,7 @@ namespace BulkAssigner
                     return "Set Enemy Response";
                 },
                 delegate {
-                    Find.WindowStack.Add(new FloatMenu(hostilityResponseOptions));
+                    Find.WindowStack.Add(BulkAssigner_Functions.getHostilityResponseModeMenu());
                 }
             ));
             buttons.Add(new ModButton_Text(
@@ -93,7 +60,7 @@ namespace BulkAssigner
                     return "Set Outfit";
                 },
                 delegate {
-                    Find.WindowStack.Add(new FloatMenu(outfitOptions));
+                    Find.WindowStack.Add(BulkAssigner_Functions.getOutfitMenu());
                 }
             ));
             buttons.Add(new ModButton_Text(
@@ -102,7 +69,7 @@ namespace BulkAssigner
                     return "Set Drug Policy";
                 },
                 delegate {
-                    Find.WindowStack.Add(new FloatMenu(drugPolicyOptions));
+                    Find.WindowStack.Add(BulkAssigner_Functions.getDrugPolicyMenu());
                 }
             ));
             buttons.Add(new ModButton_Text(
@@ -111,7 +78,7 @@ namespace BulkAssigner
                     return "Set Food Restriction";
                 },
                 delegate {
-                    Find.WindowStack.Add(new FloatMenu(foodRestrictionOptions));
+                    Find.WindowStack.Add(BulkAssigner_Functions.getFoodRestrictionMenu());
                 }
             ));
             buttons.Add(new ModButton_Text(
@@ -120,7 +87,7 @@ namespace BulkAssigner
                     return "Set Allowed Area";
                 },
                 delegate {
-                    Find.WindowStack.Add(new FloatMenu(allowedAreas));
+                    Find.WindowStack.Add(BulkAssigner_Functions.getAllowedAreaMenu());
                 }
             ));
             buttons.Add(new ModButton_Text(
