@@ -142,5 +142,30 @@ namespace BulkAssigner
             }
             return new FloatMenu(allowedAreas);
         }
+
+        public static void setMedicalCare(MedicalCareCategory mcc)
+        {
+            foreach (object obj in Find.Selector.SelectedObjects)
+            {
+                if (obj is Pawn)
+                {
+                    Pawn p = (Pawn)obj;
+                    if (p?.playerSettings != null)
+                    {
+                        p.playerSettings.medCare = mcc;
+                    }
+                }
+            }
+        }
+
+        public static FloatMenu getMedicalCareMenu()
+        {
+            List<FloatMenuOption> medicalCareCategories = new List<FloatMenuOption>();
+            foreach (MedicalCareCategory mcc in Enum.GetValues(typeof(MedicalCareCategory)))
+            {
+                medicalCareCategories.Add(new FloatMenuOption(mcc.GetLabel(), delegate { BulkAssigner_Functions.setMedicalCare(mcc); }));
+            }
+            return new FloatMenu(medicalCareCategories);
+        }
     }
 }

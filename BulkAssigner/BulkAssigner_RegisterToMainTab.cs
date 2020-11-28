@@ -93,6 +93,15 @@ namespace BulkAssigner
             buttons.Add(new ModButton_Text(
                 delegate
                 {
+                    return "Set Medical Care";
+                },
+                delegate {
+                    Find.WindowStack.Add(BulkAssigner_Functions.getMedicalCareMenu());
+                }
+            ));
+            buttons.Add(new ModButton_Text(
+                delegate
+                {
                     return "Drop Everything";
                 },
                 delegate {
