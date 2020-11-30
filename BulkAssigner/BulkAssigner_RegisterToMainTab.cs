@@ -48,19 +48,19 @@ namespace BulkAssigner
             buttons.Add(new ModButton_Text(
                 delegate
                 {
-                    return "Set Enemy Response";
+                    return "Set Outfit";
                 },
                 delegate {
-                    Find.WindowStack.Add(BulkAssigner_Functions.getHostilityResponseModeMenu());
+                    Find.WindowStack.Add(BulkAssigner_Functions.getOutfitMenu());
                 }
             ));
             buttons.Add(new ModButton_Text(
                 delegate
                 {
-                    return "Set Outfit";
+                    return "Set Allowed Area";
                 },
                 delegate {
-                    Find.WindowStack.Add(BulkAssigner_Functions.getOutfitMenu());
+                    Find.WindowStack.Add(BulkAssigner_Functions.getAllowedAreaMenu());
                 }
             ));
             buttons.Add(new ModButton_Text(
@@ -84,19 +84,19 @@ namespace BulkAssigner
             buttons.Add(new ModButton_Text(
                 delegate
                 {
-                    return "Set Allowed Area";
+                    return "Set Medical Care";
                 },
                 delegate {
-                    Find.WindowStack.Add(BulkAssigner_Functions.getAllowedAreaMenu());
+                    Find.WindowStack.Add(BulkAssigner_Functions.getMedicalCareMenu());
                 }
             ));
             buttons.Add(new ModButton_Text(
                 delegate
                 {
-                    return "Set Medical Care";
+                    return "Set Enemy Response";
                 },
                 delegate {
-                    Find.WindowStack.Add(BulkAssigner_Functions.getMedicalCareMenu());
+                    Find.WindowStack.Add(BulkAssigner_Functions.getHostilityResponseModeMenu());
                 }
             ));
             buttons.Add(new ModButton_Text(
