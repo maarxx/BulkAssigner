@@ -111,6 +111,15 @@ namespace BulkAssigner
             buttons.Add(new ModButton_Text(
                 delegate
                 {
+                    return "Bulk Consume from Inventory";
+                },
+                delegate {
+                    Find.WindowStack.Add(BulkAssigner_Functions.getBulkConsumeFromInventoryFloatMenu());
+                }
+            ));
+            buttons.Add(new ModButton_Text(
+                delegate
+                {
                     return "Bulk Operate Humanoids";
                 },
                 delegate {

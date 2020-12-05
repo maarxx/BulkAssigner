@@ -315,5 +315,65 @@ namespace BulkAssigner
             return new FloatMenu(menuAvailable);
         }
 
+        public static List<ThingDef> getAllThingDefsIngestableFromInventoryBySelected()
+        {
+            List<Pawn> pawns = new List<Pawn>();
+            List<ThingDef> thingsToIngest = new List<ThingDef>();
+            foreach (object obj in Find.Selector.SelectedObjects)
+            {
+                if (obj is Pawn)
+                {
+                    Pawn pawn = obj as Pawn;
+                    if (pawn.IsColonistPlayerControlled)
+                    {
+                        foreach (Thing thing in pawn.inventory.innerContainer.ToList())
+                        {
+                            if (FoodUtility.WillIngestFromInventoryNow(pawn, thing))
+                            {
+                                if (!thingsToIngest.Contains(thing.def))
+                                {
+                                    thingsToIngest.Add(thing.def);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return thingsToIngest;
+        }
+
+        public static void allSelectedIngestBySpecifiedDef(ThingDef td)
+        {
+            foreach (object obj in Find.Selector.SelectedObjects)
+            {
+                if (obj is Pawn)
+                {
+                    Pawn pawn = obj as Pawn;
+                    if (pawn.IsColonistPlayerControlled)
+                    {
+                        foreach (Thing thing in pawn.inventory.innerContainer.ToList())
+                        {
+                            if (thing.def == td && FoodUtility.WillIngestFromInventoryNow(pawn, thing))
+                            {
+                                FoodUtility.IngestFromInventoryNow(pawn, thing);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        public static FloatMenu getBulkConsumeFromInventoryFloatMenu()
+        {
+            List<ThingDef> thingsToIngest = getAllThingDefsIngestableFromInventoryBySelected();
+            List<FloatMenuOption> menuAvailable = new List<FloatMenuOption>();
+            foreach (ThingDef td in thingsToIngest)
+            {
+                menuAvailable.Add(new FloatMenuOption("Consume " + td.label, delegate { allSelectedIngestBySpecifiedDef(td); }));
+            }
+            return new FloatMenu(menuAvailable);
+        }
     }
 }
