@@ -108,6 +108,15 @@ namespace BulkAssigner
                     BulkAssigner_Functions.dropEverythingFromInventory();
                 }
             ));
+            buttons.Add(new ModButton_Text(
+                delegate
+                {
+                    return "Bulk Operate Humanoids";
+                },
+                delegate {
+                    Find.WindowStack.Add(BulkAssigner_Functions.getBulkOperationFloatMenu());
+                }
+            ));
 
             columns.Add(buttons);
 
