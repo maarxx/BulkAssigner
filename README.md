@@ -16,16 +16,21 @@ It provides some functions for bulk manipulation of assign functions, such as Ho
 
 You'll add the mod. You'll enable the mod.
 
-Within the game, it adds a MainTab, probably in the far-bottom-right-corner, labeled "BulkAssigner".
+Within the game, it adds a MainTab, probably in the far-bottom-right-corner, labeled "ModButtons".
 
-This MainTab contains three buttons, corresponding to the settings in the "Assign" tab:
+This MainTab contains a variety of buttons, which will perform bulk operations on every selected pawn.
 
-* One to assign Hostility Response Mode (Attack, Flee, Ignore).
-* One to assign Outfit.
-* One to assign Drug Policy.
-* One to assign Allowed Area.
+You can do all of the following:
 
-Except, here's the kicker, when you make a choice, it will apply to ALL OF YOUR SELECTED PAWNS AT ONCE.
+* Set Outfit
+* Set Allowed Area
+* Set Drug Policy
+* Set Food Restriction
+* Set Medical Care
+* Set Enemy Response (Attack, Flee, Ignore).
+* Drop Everything (Inventory, not Equipment/Apparel)
+* Consume from Inventory (Everybody eat your meal and smoke your blunt)
+* Assign Operations (Assign Peg Leg operations to all 19 prisoners)
 
 Hooray! So much less clicking!
 
