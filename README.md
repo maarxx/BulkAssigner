@@ -4,6 +4,8 @@ This is a mod for the game RimWorld by Ludeon Studios.
 
 It provides some functions for bulk manipulation of assign functions, such as Hostility Reponse Mode, Outfit, Drug Policy, and Allowed Areas.
 
+We're on Steam: https://steamcommunity.com/sharedfiles/filedetails/?id=2324535521
+
 # Dependency
 
 This requires another mod of mine: [ModButtons](https://github.com/maarxx/ModButtons)
