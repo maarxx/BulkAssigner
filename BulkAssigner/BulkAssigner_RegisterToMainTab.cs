@@ -45,6 +45,7 @@ namespace BulkAssigner
             List<List<ModButton_Text>> columns = MainTabWindow_ModButtons.columns;
 
             List<ModButton_Text> buttons = new List<ModButton_Text>();
+
             buttons.Add(new ModButton_Text(
                 delegate
                 {
