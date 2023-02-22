@@ -289,9 +289,9 @@ namespace BulkAssigner
             {
                 if (canPawnGetSurgery(pawn, surgery) && !doesPawnAlreadyHaveSurgery(pawn, surgery))
                 {
-                    Bill_Medical bm = new Bill_Medical(surgery.recipe);
-                    pawn.BillStack.AddBill(bm);
-                    bm.Part = surgery.part;
+                    //Bill_Medical bm = new Bill_Medical(surgery.recipe);
+                    //pawn.BillStack.AddBill(bm);
+                    //bm.Part = surgery.part;
                 }
             }
         }
