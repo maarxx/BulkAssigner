@@ -45,6 +45,7 @@ namespace BulkAssigner
             List<List<ModButton_Text>> columns = MainTabWindow_ModButtons.columns;
 
             List<ModButton_Text> buttons = new List<ModButton_Text>();
+
             buttons.Add(new ModButton_Text(
                 delegate
                 {
@@ -117,15 +118,15 @@ namespace BulkAssigner
                     Find.WindowStack.Add(BulkAssigner_Functions.getBulkConsumeFromInventoryFloatMenu());
                 }
             ));
-            buttons.Add(new ModButton_Text(
-                delegate
-                {
-                    return "Bulk Operate Humanoids";
-                },
-                delegate {
-                    Find.WindowStack.Add(BulkAssigner_Functions.getBulkOperationFloatMenu());
-                }
-            ));
+            //buttons.Add(new ModButton_Text(
+            //    delegate
+            //    {
+            //        return "Bulk Operate Humanoids";
+            //    },
+            //    delegate {
+            //        Find.WindowStack.Add(BulkAssigner_Functions.getBulkOperationFloatMenu());
+            //    }
+            //));
 
             columns.Add(buttons);
 
