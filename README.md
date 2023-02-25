@@ -36,7 +36,9 @@ You can do all of the following:
 * Set Enemy Response (Attack, Flee, Ignore).
 * Drop Everything (Inventory, not Equipment/Apparel)
 * Consume from Inventory (Everybody eat your meal and smoke your blunt)
-* Assign Operations (Assign Peg Leg operations to all 19 prisoners)
+* ~Assign Operations (Assign Peg Leg operations to all 19 prisoners)~
+
+Operations removed for now until I fix it.
 
 Hooray! So much less clicking!
 
