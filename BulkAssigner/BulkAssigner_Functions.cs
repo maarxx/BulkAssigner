@@ -168,151 +168,133 @@ namespace BulkAssigner
             return new FloatMenu(medicalCareCategories);
         }
 
-        public struct SurgeryOption
+        public static FloatMenu getBulkOperationFloatMenu()
         {
-            public string text;
-            public RecipeDef recipe;
-            public BodyPartRecord part;
 
-            public bool equals(SurgeryOption so2)
-            {
-                return this.text == so2.text && this.recipe == so2.recipe && this.part == so2.part;
-            }
         }
 
-        //all from HealthCardUtility.DrawMedOperationsTab
-        public static string generateSurgeryText(Pawn pawn, RecipeDef recipe, BodyPartRecord part)
+        public static List<FloatMenuOption> getAllSurgeryOptionsForPawn(Pawn pawn)
         {
-            string text = recipe.Worker.GetLabelWhenUsedOn(pawn, part).CapitalizeFirst();
-            if (part != null && !recipe.hideBodyPartNames)
-            {
-                text = text + " (" + part.Label + ")";
-            }
-            //text.Replace(" (teetotaler will be unhappy)", "");
-            return text;
-        }
-
-        public static bool doesPawnAlreadyHaveSurgery(Pawn pawn, SurgeryOption surgery)
-        {
-            foreach (Bill b in pawn.BillStack.Bills)
-            {
-                if (b is Bill_Medical)
-                {
-                    Bill_Medical existing = (Bill_Medical)b;
-                    if (existing.recipe == surgery.recipe)
-                    {
-                        if (existing.Part == surgery.part)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-
-        public static bool canPawnGetSurgery(Pawn pawn, SurgeryOption surgery)
-        {
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+            int num = 0;
             foreach (RecipeDef allRecipe in pawn.def.AllRecipes)
             {
-                if (allRecipe.AvailableNow && allRecipe.AvailableOnNow(pawn))
+                if (allRecipe.AvailableNow)
                 {
-                    IEnumerable<ThingDef> enumerable = allRecipe.PotentiallyMissingIngredients(null, pawn.Map);
-                    if (!enumerable.Any((ThingDef x) => x.isTechHediff) && !enumerable.Any((ThingDef x) => x.IsDrug) && (!enumerable.Any() || !allRecipe.dontShowIfAnyIngredientMissing))
+                    AcceptanceReport report = allRecipe.Worker.AvailableReport(pawn);
+                    if (report.Accepted || !report.Reason.NullOrEmpty())
                     {
-                        if (allRecipe.targetsBodyPart)
-                        {
-                            foreach (BodyPartRecord item in allRecipe.Worker.GetPartsToApplyOn(pawn, allRecipe))
-                            {
-                                SurgeryOption temp = new SurgeryOption();
-                                temp.text = generateSurgeryText(pawn, allRecipe, item);
-                                temp.recipe = allRecipe;
-                                temp.part = item;
-                                if (temp.equals(surgery)) { return true; }
-                            }
-                        }
-                        else
-                        {
-                            SurgeryOption temp = new SurgeryOption();
-                            temp.text = generateSurgeryText(pawn, allRecipe, null);
-                            temp.recipe = allRecipe;
-                            temp.part = null;
-                            if (temp.equals(surgery)) { return true; }
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-
-        public static List<SurgeryOption> getAllPossibleSurgeries(List<Pawn> pawns)
-        {
-            HashSet<SurgeryOption> set = new HashSet<SurgeryOption>();
-            foreach (Pawn pawn in pawns)
-            {
-                foreach (RecipeDef allRecipe in pawn.def.AllRecipes)
-                {
-                    if (allRecipe.AvailableNow && allRecipe.AvailableOnNow(pawn))
-                    {
-                        IEnumerable<ThingDef> enumerable = allRecipe.PotentiallyMissingIngredients(null, pawn.Map);
+                        IEnumerable<ThingDef> enumerable = allRecipe.PotentiallyMissingIngredients(null, pawn.MapHeld);
                         if (!enumerable.Any((ThingDef x) => x.isTechHediff) && !enumerable.Any((ThingDef x) => x.IsDrug) && (!enumerable.Any() || !allRecipe.dontShowIfAnyIngredientMissing))
                         {
                             if (allRecipe.targetsBodyPart)
                             {
                                 foreach (BodyPartRecord item in allRecipe.Worker.GetPartsToApplyOn(pawn, allRecipe))
                                 {
-                                    SurgeryOption temp = new SurgeryOption();
-                                    temp.text = generateSurgeryText(pawn, allRecipe, item);
-                                    temp.recipe = allRecipe;
-                                    temp.part = item;
-                                    if (!set.Contains(temp)) { set.Add(temp); }
+                                    if (allRecipe.AvailableOnNow(pawn, item))
+                                    {
+                                        list.Add(GenerateSurgeryOption(pawn, pawn, allRecipe, enumerable, report, num, item));
+                                        num++;
+                                    }
                                 }
                             }
                             else
                             {
-                                SurgeryOption temp = new SurgeryOption();
-                                temp.text = generateSurgeryText(pawn, allRecipe, null);
-                                temp.recipe = allRecipe;
-                                temp.part = null;
-                                if (!set.Contains(temp)) { set.Add(temp); }
+                                list.Add(GenerateSurgeryOption(pawn, pawn, allRecipe, enumerable, report, num));
+                                num++;
                             }
                         }
                     }
                 }
             }
-            return set.ToList();
+            return list;
         }
 
-        public static void addSurgeryIfNotAlready(List<Pawn> pawns, SurgeryOption surgery)
+        private static FloatMenuOption GenerateSurgeryOption(Pawn pawn, Thing thingForMedBills, RecipeDef recipe, IEnumerable<ThingDef> missingIngredients, AcceptanceReport report, int index, BodyPartRecord part = null)
         {
-            foreach (Pawn pawn in pawns)
+            string label = recipe.Worker.GetLabelWhenUsedOn(pawn, part).CapitalizeFirst();
+            if (part != null && !recipe.hideBodyPartNames)
             {
-                if (canPawnGetSurgery(pawn, surgery) && !doesPawnAlreadyHaveSurgery(pawn, surgery))
+                label = label + " (" + part.Label + ")";
+            }
+            FloatMenuOption floatMenuOption;
+            if (!report.Reason.NullOrEmpty())
+            {
+                label = label + " (" + report.Reason + ")";
+                floatMenuOption = new FloatMenuOption(label, null);
+            }
+            else if (missingIngredients.Any())
+            {
+                label += " (";
+                bool flag = true;
+                foreach (ThingDef missingIngredient in missingIngredients)
                 {
-                    //Bill_Medical bm = new Bill_Medical(surgery.recipe);
-                    //pawn.BillStack.AddBill(bm);
-                    //bm.Part = surgery.part;
+                    if (!flag)
+                    {
+                        label += ", ";
+                    }
+                    flag = false;
+                    label += "MissingMedicalBillIngredient".Translate(missingIngredient.label);
                 }
+                label += ")";
+                floatMenuOption = new FloatMenuOption(label, null);
             }
-        }
-
-        public static FloatMenu getBulkOperationFloatMenu()
-        {
-            List<Pawn> pawns = new List<Pawn>();
-            foreach (object obj in Find.Selector.SelectedObjects)
+            else
             {
-                if (obj is Pawn)
+                Action action = delegate
                 {
-                    pawns.Add((Pawn)obj);
-                }
+                    Pawn medPawn = thingForMedBills as Pawn;
+                    if (medPawn != null)
+                    {
+                        HediffDef hediffDef = recipe.addsHediff ?? recipe.changesHediffLevel;
+                        if (hediffDef != null)
+                        {
+                            TaggedString text = CompRoyalImplant.CheckForViolations(medPawn, hediffDef, recipe.hediffLevelOffset);
+                            if (!text.NullOrEmpty())
+                            {
+                                Find.WindowStack.Add(new Dialog_MessageBox(text, "Yes".Translate(), delegate
+                                {
+                                    HealthCardUtility.CreateSurgeryBill(medPawn, recipe, part);
+                                }, "No".Translate()));
+                            }
+                            else
+                            {
+                                TaggedString confirmation = recipe.Worker.GetConfirmation(medPawn);
+                                if (!confirmation.NullOrEmpty())
+                                {
+                                    Find.WindowStack.Add(new Dialog_MessageBox(confirmation, "Yes".Translate(), delegate
+                                    {
+                                        HealthCardUtility.CreateSurgeryBill(medPawn, recipe, part);
+                                    }, "No".Translate()));
+                                }
+                                else
+                                {
+                                    HealthCardUtility.CreateSurgeryBill(medPawn, recipe, part);
+                                }
+                            }
+                        }
+                        else if (recipe.Worker is Recipe_ImplantXenogerm)
+                        {
+                            Find.WindowStack.Add(new Dialog_SelectXenogerm(pawn, pawn.Map, null, delegate (Xenogerm x)
+                            {
+                                x.SetTargetPawn(pawn);
+                            }));
+                        }
+                        else
+                        {
+                            HealthCardUtility.CreateSurgeryBill(medPawn, recipe, part);
+                        }
+                    }
+                };
+                floatMenuOption = ((recipe.Worker is Recipe_AdministerIngestible) ? new FloatMenuOption(label, action, recipe.ingredients.FirstOrDefault()?.FixedIngredient) : ((!(recipe.Worker is Recipe_RemoveBodyPart)) ? new FloatMenuOption(label, action, recipe.UIIconThing) : new FloatMenuOption(label, action, part.def.spawnThingOnRemoved)));
             }
-            List<SurgeryOption> available = getAllPossibleSurgeries(pawns);
-            List<FloatMenuOption> menuAvailable = new List<FloatMenuOption>();
-            foreach (SurgeryOption so in available)
+            floatMenuOption.extraPartWidth = 29f;
+            floatMenuOption.extraPartOnGUI = ((Rect rect) => Widgets.InfoCardButton(rect.x + 5f, rect.y + (rect.height - 24f) / 2f, recipe));
+            floatMenuOption.mouseoverGuiAction = delegate (Rect rect)
             {
-                menuAvailable.Add(new FloatMenuOption(so.text, delegate { addSurgeryIfNotAlready(pawns, so); }));
-            }
-            return new FloatMenu(menuAvailable);
+                BillUtility.DoBillInfoWindow(index, label, rect, recipe);
+            };
+            return floatMenuOption;
         }
 
         public static List<ThingDef> getAllThingDefsIngestableFromInventoryBySelected()
