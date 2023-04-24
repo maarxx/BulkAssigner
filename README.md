@@ -13,10 +13,6 @@ This requires another mod of mine: [ModButtons](https://github.com/maarxx/ModBut
 # Table of Contents
 
 * [Introduction and Explanation](#introduction-and-explanation)
-* [Specific Additional Features](#specific-additional-features)
-* [How to Install](#how-to-install)
-* [How to Update](#how-to-update)
-* [Bugs, New Features, and Updates](#bugs-new-features-and-updates)
 
 # Introduction and Explanation
 
