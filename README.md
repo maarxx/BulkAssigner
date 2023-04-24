@@ -2,7 +2,7 @@
 
 This is a mod for the game RimWorld by Ludeon Studios.
 
-It provides some functions for bulk manipulation of assign functions, such as Hostility Reponse Mode, Outfit, Drug Policy, and Allowed Areas.
+The mod provides some functions for bulk manipulation of assign functions, such as Hostility Reponse Mode, Outfit, Drug Policy, and Allowed Areas.
 
 We're on Steam: https://steamcommunity.com/sharedfiles/filedetails/?id=2324535521
 
@@ -12,13 +12,13 @@ This requires another mod of mine: [ModButtons](https://github.com/maarxx/ModBut
 
 # Table of Contents
 
-* [Introduction and Explanation](#introduction-and-explanation)
+* [Introduction](#introduction)
 
-# Introduction and Explanation
+# Introduction
 
-You'll add the mod. You'll enable the mod.
+The mod provides some functions for bulk manipulation of assign functions, such as Hostility Reponse Mode, Outfit, Drug Policy, and Allowed Areas.
 
-Within the game, it adds a MainTab, probably in the far-bottom-right-corner, labeled "ModButtons".
+The dependency "ModButtons" will add a similarly-named tab in the bottom-right corner, with some control buttons.
 
 This MainTab contains a variety of buttons, which will perform bulk operations on every selected pawn.
 
