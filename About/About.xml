@@ -3,7 +3,9 @@
   <name>BulkAssigner</name>
   <author>Maarx</author>
   <url>https://github.com/maarxx/BulkAssigner/</url>
-  <description>Provides some functions for bulk manipulation of assign functions, such as Hostility Reponse Mode, Outfit, Drug Policy, and Allowed Areas.</description>
+  <description>
+The mod provides some functions for bulk manipulation of assign functions, such as Hostility Reponse Mode, Outfit, Drug Policy, and Allowed Areas.
+  </description>
   <packageId>maarx.bulkassigner</packageId>
   <supportedVersions>
     <li>1.2</li>
